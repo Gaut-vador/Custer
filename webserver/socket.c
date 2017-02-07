@@ -10,7 +10,7 @@ void accepter_connexion(int socket_serveur){
 	}
 
 	//sleep(1);
-	
+
 	/* On peut maintenant dialoguer avec le client */
 	const char * message_bienvenue = "\n\nBonjour, bienvenue sur le serveur Custer!\nSur ce serveur nous le traitons pas nos clients comme des Apaches!\nGeorge Armstrong Custer est un général de cavalerie américain\n(5 décembre 1839 New Rumley, Ohio - 25 juin 1876, Montana).\n\nIl est célèbre pour ses exploits durant la guerre de Sécession et sa défaite lors de la bataille de Little Bighorn face à une coalition de tribus indiennes.\nIl est une des principales figures américaines des guerres indiennes du xixe siècle.\n\n" ;
 	
@@ -41,12 +41,15 @@ int creer_serveur (int port){
 	saddr.sin_port = htons(port); /* Port d ’écoute */
 	saddr.sin_addr.s_addr = INADDR_ANY ; /* écoute sur toutes les interfaces */
 
-	
+	int optval = 1;
+	if ( setsockopt (socket_serveur, SOL_SOCKET, SO_REUSEADDR, & optval, sizeof (int )) == -1)
+		perror ( " Can not set SO_REUSEADDR option " );
 	
 	if ( bind(socket_serveur, (struct sockaddr *) &saddr, sizeof(saddr)) == -1){
 		perror("bind socker_serveur");
 		return -1;
 	}
+
 	if ( listen ( socket_serveur , 10) == -1){
 		perror ( " listen socket_serveur " );
 		return -1;
