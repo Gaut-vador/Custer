@@ -1,0 +1,5 @@
+3.2.1
+	1: Si l'on quitte le serveur et qu'on le relance trop vite, un message d'erreur apparait nous informant que l'adresse est déjà utilisée.
+	2: Si l'on fait ainsi, la commande ne permet pas de se connecter au serveur.
+	3: Le serveur n'accepte pas les connections en IPv6.
+	4: Le serveur n'accepte pas la connection simultané de plusieurs clients.

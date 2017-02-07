@@ -8,6 +8,9 @@ void accepter_connexion(int socket_serveur){
 		perror("accept");
 		/* traitement d ’ erreur */
 	}
+
+	//sleep(1);
+	
 	/* On peut maintenant dialoguer avec le client */
 	const char * message_bienvenue = "\n\nBonjour, bienvenue sur le serveur Custer!\nSur ce serveur nous le traitons pas nos clients comme des Apaches!\nGeorge Armstrong Custer est un général de cavalerie américain\n(5 décembre 1839 New Rumley, Ohio - 25 juin 1876, Montana).\n\nIl est célèbre pour ses exploits durant la guerre de Sécession et sa défaite lors de la bataille de Little Bighorn face à une coalition de tribus indiennes.\nIl est une des principales figures américaines des guerres indiennes du xixe siècle.\n\n" ;
 	
