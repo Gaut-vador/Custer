@@ -5,6 +5,7 @@ void traitement_signal(int sig){
 }
 
 void initialiser_signaux (void) {
+  printf("Initialiser Signaux");
   if (signal(SIGPIPE,SIG_IGN) == SIG_ERR){
     perror ("signal");
   }

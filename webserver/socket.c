@@ -4,30 +4,30 @@ void accepter_connexion(int socket_serveur){
   int socket_client ;
   socket_client = accept(socket_serveur, NULL, NULL);
   if (socket_client == -1){
-    perror("accept");
+    perror("accept socket_client");
     /* traitement d ’ erreur */
+    exit(1); // NE PAS ENLEVER le exit gere le lancement d'un autre serveur sur le meme port
   }
-  
-  //sleep(1);
-  
-  /* On peut maintenant dialoguer avec le client */
-  const char * message_bienvenue = "\n\nBonjour, bienvenue sur le serveur Custer!\nSur ce serveur nous le traitons pas nos clients comme des Apaches!\nGeorge Armstrong Custer est un général de cavalerie américain\n(5 décembre 1839 New Rumley, Ohio - 25 juin 1876, Montana).\n\nIl est célèbre pour ses exploits durant la guerre de Sécession et sa défaite lors de la bataille de Little Bighorn face à une coalition de tribus indiennes.\nIl est une des principales figures américaines des guerres indiennes du xixe siècle.\n\n" ;
-
-  pid_t pid = 0;
-  if((pid = fork()) == -1)
-    perror("fork");
-  if(pid != 0) {
-    printf("je suis le papa");
-    close(socket_client);
-  } else {
-    write (socket_client, message_bienvenue, strlen(message_bienvenue));
+    //sleep(1);
     
-    char message[50];
-    while(socket_client){
-      int length = read(socket_client, message, 50);
-      if(length > 0){
-	write (socket_client, message, length);
-      }
+    /* On peut maintenant dialoguer avec le client */
+    const char * message_bienvenue = "\n\nBonjour, bienvenue sur le serveur Custer!\nSur ce serveur nous le traitons pas nos clients comme des Apaches!\nGeorge Armstrong Custer est un général de cavalerie américain\n(5 décembre 1839 New Rumley, Ohio - 25 juin 1876, Montana).\n\nIl est célèbre pour ses exploits durant la guerre de Sécession et sa défaite lors de la bataille de Little Bighorn face à une coalition de tribus indiennes.\nIl est une des principales figures américaines des guerres indiennes du xixe siècle.\n\n" ;
+    
+    pid_t pid = 0;
+    if((pid = fork()) == -1)
+      perror("fork");
+    if(pid != 0) {
+      printf("je suis le papa");
+      close(socket_client);
+    } else {
+      write (socket_client, message_bienvenue, strlen(message_bienvenue));
+      
+      char message[50];
+      while(socket_client){
+	int length = read(socket_client, message, 50);
+	if(length > 0){
+	  write (socket_client, message, length);
+	}
     }
   }
 }

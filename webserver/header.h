@@ -5,5 +5,6 @@
 #include <netinet/ip.h> /* superset of previous */
 #include <unistd.h>
 #include <signal.h>
+#include <stdlib.h>
 
 #include "socket.h"
