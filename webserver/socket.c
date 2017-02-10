@@ -24,7 +24,7 @@ void accepter_connexion(int socket_serveur){
     write (socket_client, message_bienvenue, strlen(message_bienvenue));
 
     char message[50];
-    while(1){
+    while(socket_client){
       sleep(1);
       int length = read(socket_client, message, 50);
       if(length > 0){
