@@ -17,20 +17,19 @@ void accepter_connexion(int socket_serveur){
     	if((pid = fork()) == -1)
       		perror("fork");
     	if(pid != 0) {
+    		//execlp("cat","cat","../data/custer.ascii", NULL);
       		close(socket_client);
     	} 
     	else {
       		write (socket_client, message_bienvenue, strlen(message_bienvenue));
-      		if(fork())
-				execlp("cat","cat ../data/custer.ascii");
-      		else
-				return;
       		char message[50];
       		while(socket_client){
 				sleep(1);
 				int length = read(socket_client, message, 50);
 				if(length > 0)
 	  				write(socket_client, message, length);
+
+	  			close(socket_client);
       		}
     	}
   	}
