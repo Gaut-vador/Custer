@@ -28,8 +28,6 @@ void accepter_connexion(int socket_serveur){
 				int length = read(socket_client, message, 50);
 				if(length > 0)
 	  				write(socket_client, message, length);
-
-	  			close(socket_client);
       		}
     	}
   	}
