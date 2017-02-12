@@ -16,18 +16,28 @@ void accepter_connexion(int socket_serveur){
     	pid_t pid = 0;
     	if((pid = fork()) == -1)
       		perror("fork");
-    	if(pid != 0) {
-    		//execlp("cat","cat","../data/custer.ascii", NULL);
+    	if(pid == 0) {
       		close(socket_client);
     	} 
     	else {
-      		write (socket_client, message_bienvenue, strlen(message_bienvenue));
-      		char message[50];
-      		while(socket_client){
-				sleep(1);
-				int length = read(socket_client, message, 50);
-				if(length > 0)
-	  				write(socket_client, message, length);
+      		pid_t id = 0;
+
+      		if((id = fork()) == -1)
+      			perror("fork");
+    		if(id == 0) {
+      			close(1);
+    			dup(socket_client);
+    			write (socket_client, message_bienvenue, strlen(message_bienvenue));
+    			execlp("cat","cat","../data/custer.ascii", NULL);
+    		} 
+    		else {
+      			char message[50];
+      			while(socket_client){
+					//sleep(1);
+					int length = read(socket_client, message, 50);
+					if(length > 0)
+	  					write(socket_client, message, length);
+	  			}
       		}
     	}
   	}
@@ -35,7 +45,7 @@ void accepter_connexion(int socket_serveur){
 
 int creer_serveur (int port) {  
   	//creation de la socket
-  	port = 8080;
+  	//port = 8080;
   	int socket_serveur ;
   	socket_serveur = socket(AF_INET, SOCK_STREAM, 0);
   	if ( socket_serveur == -1){

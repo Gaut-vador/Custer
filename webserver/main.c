@@ -25,13 +25,15 @@ int main(int argc, char ** argv){
   	printf("Loading Cavalry ... ");
   
   	initialiser_signaux();
-  	int socket_server = creer_serveur(8084);
-  	if(socket_server)
+  	int socket_server = creer_serveur(8080);
+  	if(socket_server){
     	printf("Let's make America great !\n");
+    	accepter_connexion(socket_server);
+  	}
   	else
     	printf("Apaches won !\n");
 
-  	accepter_connexion(socket_server);
+  	
 
   	return 0;
 }
