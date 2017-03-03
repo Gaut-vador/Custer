@@ -3,3 +3,14 @@
 	2: Si l'on fait ainsi, la commande ne permet pas de se connecter au serveur.
 	3: Le serveur n'accepte pas les connections en IPv6.
 	4: Le serveur n'accepte pas la connection simultané de plusieurs clients.
+
+5.2.1
+	3: curl envoie:
+
+		GET / HTTP/1.1
+		User-Agent: curl/7.45.0
+		Accept: */*
+
+	4: GET : méthode
+		/ : ressource
+		HTTP/1.1 : version du protocole
