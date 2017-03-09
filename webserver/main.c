@@ -54,13 +54,19 @@ int main(int argc, char ** argv){
       if((pid = fork()) == -1) {
 	perror("Erreur lors de la création du processus fils");
       }else if(pid==0){
-	fprintf(discript_socket, "%s", message_bienvenue);
+	//fprintf(discript_socket, "%s", message_bienvenue);
 	
 	char recu[1024];
 	char prompt[] = "<Custer>";
-	
+	//char *get = malloc(sizeof(char)*50);
 	while(fgets(recu, 1024, discript_socket) != NULL){
-	  fprintf(discript_socket, "%s%s%d", prompt, recu, nbMots(recu));
+	  if(nbMots(recu) == 3) {
+	    if(strcmp(mots(recu,0),"GET"))   
+	      while(fgets(recu, 1024, discript_socket) != NULL && !verifEmptyStr(recu)) {
+	      }
+	  }
+	  //fprintf(discript_socket, "%s%s%d", prompt, recu, nbMots(recu));
+	  fprintf(discript_socket, "%s", message_bienvenue);
 	}
 	close(socket_client);
 	return 0;
