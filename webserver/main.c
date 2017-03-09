@@ -60,7 +60,7 @@ int main(int argc, char ** argv){
 	char prompt[] = "<Custer>";
 	
 	while(fgets(recu, 1024, discript_socket) != NULL){
-	  fprintf(discript_socket, "%s%s", prompt, recu);
+	  fprintf(discript_socket, "%s%s%d", prompt, recu, nbMots(recu));
 	}
 	close(socket_client);
 	return 0;
