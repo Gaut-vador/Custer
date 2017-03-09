@@ -64,9 +64,10 @@ int main(int argc, char ** argv){
 						if(strcmp(mots(recu)[0], "GET") == 0)   
 							while(fgets(recu, 1024, discript_socket) != NULL && !verifEmptyStr(recu)) {
 							}
+							fprintf(discript_socket, "%s", message_bienvenue);
 						}
 	  //fprintf(discript_socket, "%s%s%d", prompt, recu, nbMots(recu));
-						fprintf(discript_socket, "%s", message_bienvenue);
+						
 					}
 					close(socket_client);
 					return 0;
