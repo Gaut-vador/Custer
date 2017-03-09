@@ -10,7 +10,7 @@ int nbMots(char *chaine) {
   return compteur;
 }
 
-char **mots(char *str,int ret) {
+char **mots(char *str) {
   char *chaine = str;
   char *stRez = malloc(sizeof(char)*50);
   char **rez = malloc(sizeof(stRez)*10);

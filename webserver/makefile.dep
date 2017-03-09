@@ -1,3 +1,4 @@
-socket.o: socket.c header.h socket.h
-fonction.o: fonction.c header.h socket.h
-main.o: main.c header.h socket.h
+socket.o: socket.c header.h socket.h fonction.h
+fonction.o: fonction.c header.h socket.h fonction.h
+tmp.o: tmp.c header.h socket.h fonction.h
+main.o: main.c header.h socket.h fonction.h
