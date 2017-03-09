@@ -42,36 +42,60 @@ int main(int argc, char ** argv){
 		int socket_client;
 
 		while(1){
-			socket_client=accept(socket_server, NULL, NULL);
-
-			if(socket_client==-1){
-				perror("Erreur lors de la connection du client");
-				return 0;
+		  socket_client=accept(socket_server, NULL, NULL);
+		  
+		  if(socket_client==-1){
+		    perror("Erreur lors de la connection du client");
+		    return 0;
+		  }
+		  
+		  FILE * discript_socket = fdopen(socket_client, "w+");
+		  
+		  if((pid = fork()) == -1) {
+		    perror("Erreur lors de la création du processus fils");
+		  }else if(pid==0){
+		    //fprintf(discript_socket, "%s", message_bienvenue);
+		    
+		    char recu[1024];
+		    char prompt[] = "<Custer>";
+		    int cptEmpty = 0;
+		    //char *get = malloc(sizeof(char)*50);
+		    while(fgets(recu, 1024, discript_socket) != NULL){
+		      if(nbMots(recu) == 3) {
+			if(strcmp(mots(recu,0), "GET") == 0 && verif_protocole(mots(recu,2))) {
+			  while(fgets(recu, 1024, discript_socket) != NULL && cptEmpty == 2 ) {
+			    fprintf(discript_socket, "nombre de \n%d", cptEmpty);
+			    if(verifEmptyStr(recu))
+			      cptEmpty++;
+			    if(!verifEmptyStr(recu))
+			      cptEmpty = 0;
+			  }
+			  fprintf(discript_socket, "%s", message_bienvenue);
+			}else {
+			  while(fgets(recu, 1024, discript_socket) != NULL && cptEmpty == 2 ) {
+			    fprintf(discript_socket, "nombre de \n%d", cptEmpty);
+			    if(verifEmptyStr(recu))
+			      cptEmpty++;
+			    if(!verifEmptyStr(recu))
+			      cptEmpty = 0;
+			  }
+			  fprintf(discript_socket, "%s", errorMessage(400));
 			}
-
-			FILE * discript_socket = fdopen(socket_client, "w+");
-
-			if((pid = fork()) == -1) {
-				perror("Erreur lors de la création du processus fils");
-			}else if(pid==0){
-	//fprintf(discript_socket, "%s", message_bienvenue);
-
-				char recu[1024];
-				char prompt[] = "<Custer>";
-	//char *get = malloc(sizeof(char)*50);
-				while(fgets(recu, 1024, discript_socket) != NULL){
-					if(nbMots(recu) == 3) {
-						if(strcmp(mots(recu)[0], "GET") == 0)   
-							while(fgets(recu, 1024, discript_socket) != NULL && !verifEmptyStr(recu)) {
-							}
-							fprintf(discript_socket, "%s", message_bienvenue);
-						}
-	  //fprintf(discript_socket, "%s%s%d", prompt, recu, nbMots(recu));
-						
-					}
-					close(socket_client);
-					return 0;
-				}
+		      }else {
+			while(fgets(recu, 1024, discript_socket) != NULL && cptEmpty == 2 ) {
+			    fprintf(discript_socket, "nombre de \n%d", cptEmpty);
+			    if(verifEmptyStr(recu))
+			      cptEmpty++;
+			    if(!verifEmptyStr(recu))
+			      cptEmpty = 0;
 			}
-		}	
-	}
+			fprintf(discript_socket, "%s", errorMessage(400));
+			//fprintf(discript_socket, "%s%s%d", prompt, recu, nbMots(recu));
+		      }
+		    }
+		    close(socket_client);
+		    return 0;
+		  }
+		}
+	}	
+}

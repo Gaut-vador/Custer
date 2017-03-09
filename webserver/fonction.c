@@ -10,10 +10,9 @@ int nbMots(char *chaine) {
   return compteur;
 }
 
-char **mots(char *str) {
+char *mots(char *str,int idx) {
   char *chaine = str;
   char *stRez = malloc(sizeof(char)*50);
-  char **rez = malloc(sizeof(stRez)*10);
   int cpt = 0;
   int stCpt = 0;
   int i;
@@ -25,17 +24,16 @@ char **mots(char *str) {
       stRez[stCpt ++] = chaine[i];
     }else {
       stCpt = 0;
-      rez[cpt++] = stRez;
-      printf("%s",stRez);
+      if(cpt ++ == idx)
+	return stRez;
       memset(stRez,0,sizeof(stRez));
-      printf("\n");
     }
   }
-  return rez;
+  return NULL;
 }
 
 int verif_protocole(char* prot){
-  if(prot[0] == 'H' && prot[1] == 'T' && prot[2] == 'T' && prot[3] == 'P' && prot[4] == '/' && prot[5] == '1' && (prot[6] == '1' || prot[6] == '0'))
+  if(strcmp(prot, "HTTP/1.1") == 0 || strcmp(prot, "HTTP/1.0") == 0 )
     return 1;
   else
     return -1;
@@ -45,4 +43,11 @@ int verifEmptyStr(char *str) {
   if((strlen(str) == 1 && str[0] == '\n') || (strlen(str) == 2 && str[0] == '\r' && str[1] == '\n'))
     return 1;
   return -1;
+}
+
+char *errorMessage(int id) {
+  if(id == 400) {
+    return "HTTP/1.1 400 Bad Request\r\nConnection: close\r\nContent-Length: 17\r\n400 Bad request\r\n";
+  }
+  return NULL;
 }
