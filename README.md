@@ -6,4 +6,4 @@ Il doit aussi repondre a des requetes simple en HTTP (par exemple la requete GET
 
 Pour compiler ce projet, vous devez vous trouver dans l'arborescence du projet et utiliser le Makefile fournit.
 
-Pour lancer le serveur, il faut se rendre dans le dossier "webserver" et lancer l'executable main qui s'y trouve.
+Pour lancer le serveur, il faut se rendre dans le dossier "webserver" et lancer l'executable Custer qui s'y trouve.
