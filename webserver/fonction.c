@@ -47,7 +47,38 @@ int verifEmptyStr(char *str) {
 
 char *errorMessage(int id) {
   if(id == 400) {
-    return "HTTP/1.1 400 Bad Request\r\nConnection: close\r\nContent-Length: 17\r\n400 Bad request\r\n";
+    return "HTTP/1.1 400 Bad Request\r\nConnection: close\r\nContent-Length: 17\r\n\r\n400 Bad request\r\n";
   }
   return NULL;
+}
+
+char *okMessage(int id,const char* str) {
+  printf("okMessage");
+  char *entete = "HTTP/1.1 200 OK\r\nContent-Length: ";
+  char c = strlen(str)+'0';
+  //entete[strlen(entete)] = c;
+  //entete[strlen(entete)] = '\0';
+  /*char *rez = malloc(sizeof(str) + sizeof(entete) + sizeof(char)*6);
+  printf("malloc ok");
+  int cpt = 0 ;
+  while(entete[cpt++] != '\0') {
+    printf("cpt : %d",cpt);
+  }
+  entete[cpt++] = strlen(str);
+  entete[cpt] = '\0';*/
+  return entete;
+}
+
+int enoughSpaces(char *recu,int size, FILE *discript_socket) {
+  int cptEmpty = 0;
+  while(fgets(recu, size, discript_socket) != NULL && cptEmpty == 2 ) {
+    fprintf(discript_socket, "nombre de \n%d", cptEmpty);
+    if(verifEmptyStr(recu))
+      cptEmpty++;
+    if(!verifEmptyStr(recu))
+      cptEmpty = 0;
+  }
+  if(cptEmpty == 2)
+    return 1;
+  return 0;
 }
