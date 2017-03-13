@@ -52,21 +52,8 @@ char *errorMessage(int id) {
   return NULL;
 }
 
-char *okMessage(int id,const char* str) {
-  printf("okMessage");
-  char *entete = "HTTP/1.1 200 OK\r\nContent-Length: ";
-  char c = strlen(str)+'0';
-  //entete[strlen(entete)] = c;
-  //entete[strlen(entete)] = '\0';
-  /*char *rez = malloc(sizeof(str) + sizeof(entete) + sizeof(char)*6);
-  printf("malloc ok");
-  int cpt = 0 ;
-  while(entete[cpt++] != '\0') {
-    printf("cpt : %d",cpt);
-  }
-  entete[cpt++] = strlen(str);
-  entete[cpt] = '\0';*/
-  return entete;
+char *okMessage(int id) {
+  return "HTTP/1.1 200 OK\r\nContent-Length: ";
 }
 
 int enoughSpaces(char *recu,int size, FILE *discript_socket) {
