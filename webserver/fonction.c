@@ -5,35 +5,28 @@ int nbMots(char *chaine) {
   int compteur = 0, taille = 0;
 
   if(chaine)
-    for(; sscanf(chaine += taille, "%63s%n", tampon, &taille) == 1; compteur++)
-      ;
+    for(; sscanf(chaine += taille, "%63s%n", tampon, &taille) == 1; compteur++){
+    }
   return compteur;
 }
 
 char *mots(char *str,int idx) {
-  char *chaine = str;
-  char *stRez = malloc(sizeof(char)*50);
-  int cpt = 0;
-  int stCpt = 0;
-  int i;
-  
-  for(i=0;chaine[i]!='\0';i++) {
-    while(chaine[i] == ' ' && chaine[i+1] == ' ')
-      i++;
-    if(chaine[i]!=' ' && chaine[i] != '\n') {
-      stRez[stCpt ++] = chaine[i];
-    }else {
-      stCpt = 0;
-      if(cpt ++ == idx)
-	return stRez;
-      memset(stRez,0,sizeof(stRez));
-    }
-  }
-  return NULL;
+  char *mot1 = malloc(sizeof(char)*50);
+  char *mot2 = malloc(sizeof(char)*50);
+  char *mot3 = malloc(sizeof(char)*50);
+  sscanf(str,"%s %s %s",mot1,mot2,mot3);
+  if(idx == 0)
+    return mot1;
+  else if(idx == 1)
+    return mot2;
+  else if(idx == 2)
+    return mot3;
+  return mot3;
 }
 
+
 int verif_protocole(char* prot){
-  if(strcmp(prot, "HTTP/1.1") == 0 || strcmp(prot, "HTTP/1.0") == 0 )
+  if(strcmp(prot, "HTTP/1.1") || strcmp(prot, "HTTP/1.0"))
     return 1;
   else
     return -1;
